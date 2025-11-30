@@ -32,6 +32,7 @@ kind create cluster --name flink-playground
 kubectl apply -f https://github.com/jetstack/cert-manager/releases/download/v1.18.2/cert-manager.yaml
 
 helm upgrade --install flink-kubernetes-operator -n flink --create-namespace \
+  --set webhook.create=false \
   https://downloads.apache.org/flink/flink-kubernetes-operator-1.13.0/flink-kubernetes-operator-1.13.0-helm.tgz
 
 echo "[END] Install dev tools"
