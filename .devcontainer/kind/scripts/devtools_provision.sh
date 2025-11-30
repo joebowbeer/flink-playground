@@ -1,0 +1,37 @@
+#!/bin/bash
+
+echo "[START] Install dev tools"
+
+sudo apt update
+
+# sudo apt install -y nano curl zip unzip git zsh bat httpie
+
+# npm install --global @restatedev/restate@latest
+
+kind delete cluster --name flink-playground
+kind create cluster --name flink-playground
+
+# helm repo add headlamp https://kubernetes-sigs.github.io/headlamp/
+# helm upgrade --install headlamp headlamp/headlamp --namespace kube-system
+
+# export ARGOCD_VERSION=v3.1.1
+# kubectl create namespace argocd
+# kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/$ARGOCD_VERSION/manifests/core-install.yaml
+
+# curl -sSL -o argocd https://github.com/argoproj/argo-cd/releases/download/$ARGOCD_VERSION/argocd-linux-amd64
+# chmod +x argocd
+# sudo mv argocd /usr/local/bin/
+
+# kubectl config set-context --current --namespace=argocd
+# argocd login --core
+# argocd admin dashboard -n argocd
+
+# helm upgrade --install crossplane -n crossplane-system --create-namespace \
+#   https://charts.crossplane.io/stable/crossplane-2.0.2.tgz
+
+kubectl apply -f https://github.com/jetstack/cert-manager/releases/download/v1.18.2/cert-manager.yaml
+
+helm upgrade --install flink-kubernetes-operator -n flink --create-namespace \
+  https://downloads.apache.org/flink/flink-kubernetes-operator-1.13.0/flink-kubernetes-operator-1.13.0-helm.tgz
+
+echo "[END] Install dev tools"
